@@ -24,4 +24,4 @@ To use the JavaScript-Calculator, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone [repository-url]
+   git clone git@github.com:EJ-Lan/JavaScript-Calculator.git
