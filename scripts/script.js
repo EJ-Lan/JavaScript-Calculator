@@ -8,6 +8,8 @@ let operate = (operator, firstNum, secondNum) => {
     return operator(firstNum, secondNum);
 }
 
+let inputButtons = document.querySelectorAll('#input-buttons');
+
 // Make operate globally accessible for testing
 window.operate = operate;
 window.add = add;
