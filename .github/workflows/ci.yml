@@ -15,10 +15,6 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t javascript-calculator .
-
-    - name: Verify Jest binary permissions
-      run: docker run --rm javascript-calculator ls -la ./node_modules/.bin/jest
-    
-    # Run tests inside the Docker container
+      
     - name: Run tests
-      run: docker run --rm javascript-calculator npm test
+      run: docker run --rm javascript-calculator ./node_modules/.bin/jest --config ./config/jest.config.js
