@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build Docker image
+      run: docker build -t javascript-calculator .
+
+    - name: Verify Jest binary permissions
+      run: docker run --rm javascript-calculator ls -la ./node_modules/.bin/jest
+    
+    # Run tests inside the Docker container
+    - name: Run tests
+      run: docker run --rm javascript-calculator npm test
