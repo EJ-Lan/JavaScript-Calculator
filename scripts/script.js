@@ -1,18 +1,48 @@
 import { add, subtract, multiply, divide } from './math.js';
 
-let firstNum = 0;
-let secondNum = 0;
-let operator;
+let firstNum = null;
+let secondNum = null;
+let currentOperator = null;
+let displayVal = '';
 
-let operate = (operator, firstNum, secondNum) => {
-    return operator(firstNum, secondNum);
+const calculatorDisplay = document.querySelector('.calculator-display');
+
+const updateDisplay = () => {
+    calculatorDisplay.innerText = displayVal === '' ? '0' : displayVal;
 }
 
-let inputButtons = document.querySelectorAll('#input-buttons');
+const appendDigit = (digit) => {
+    displayVal += digit;
+    updateDisplay();
+}
 
-// Make operate globally accessible for testing
-window.operate = operate;
-window.add = add;
-window.subtract = subtract;
-window.multiply = multiply;
-window.divide = divide;
+const clearDisplay = () => {
+    displayVal = '';
+    updateDisplay();
+}
+
+const deleteLastDigit = () => {
+    displayVal = displayVal.slice(0, -1);
+    updateDisplay();
+}
+
+const numButtonEventListener = () => {
+    const numButtons = document.querySelectorAll('.num-button');
+    numButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            appendDigit(button.innerText);
+        });
+    });
+
+    const clearButton = document.querySelector('#clear-button');
+    clearButton.addEventListener('click', clearDisplay);
+
+    const deleteButton = document.querySelector('#delete-button');
+    deleteButton.addEventListener('click', deleteLastDigit);
+};
+
+const operate = (currentOperator, firstNum, secondNum) => {
+    return currentOperator(firstNum, secondNum);
+}
+
+numButtonEventListener();
