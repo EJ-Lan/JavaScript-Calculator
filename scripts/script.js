@@ -17,6 +17,9 @@ const updateOperationDisplay = () => {
 }
 
 const appendDigit = (digit) => {
+    if (digit === '.' && displayVal.includes('.')) {
+        return; // Prevents adding a second decimal point
+    }
     displayVal += digit;
     updateDisplay();
 }
@@ -44,25 +47,38 @@ const numButtonEventListener = () => {
     });
 };
 
+const countDecimals = (value) => {
+    if (Math.floor(value) !== value)
+        return value.toString().split(".")[1].length || 0;
+    return 0;
+}
+
 const operate = () => {
     firstNum = parseFloat(firstNum);
     secondNum = parseFloat(displayVal);
+    let result;
     switch (currentOperator) {
         case '+':
-            displayVal = add(firstNum, secondNum).toString();
+            result = add(firstNum, secondNum);
             break;
         case '-':
-            displayVal = subtract(firstNum, secondNum).toString();
+            result = subtract(firstNum, secondNum);
             break;
         case '×':
-            displayVal = multiply(firstNum, secondNum).toString();
+            result = multiply(firstNum, secondNum);
             break;
         case '÷':
-            displayVal = divide(firstNum, secondNum).toString();
+            result = divide(firstNum, secondNum);
             break;
         default:
             return;
     }
+
+    if (countDecimals(result) > 13) {
+        result = result.toFixed(13);
+    }
+
+    displayVal = result.toString();
     updateDisplay();
     clearOperation();
 }
