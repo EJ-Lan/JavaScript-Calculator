@@ -6,9 +6,14 @@ let currentOperator = null;
 let displayVal = '';
 
 const calculatorDisplay = document.querySelector('.calculator-display');
+const operationDisplay = document.querySelector('.operation-display'); // New element for displaying the current operation
 
 const updateDisplay = () => {
     calculatorDisplay.innerText = displayVal === '' ? '0' : displayVal;
+}
+
+const updateOperationDisplay = () => {
+    operationDisplay.innerText = firstNum !== null && currentOperator !== null ? `${firstNum} ${currentOperator}` : '';
 }
 
 const appendDigit = (digit) => {
@@ -18,7 +23,11 @@ const appendDigit = (digit) => {
 
 const clearDisplay = () => {
     displayVal = '';
+    firstNum = null;
+    secondNum = null;
+    currentOperator = null;
     updateDisplay();
+    updateOperationDisplay();
 }
 
 const deleteLastDigit = () => {
@@ -33,7 +42,59 @@ const numButtonEventListener = () => {
             appendDigit(button.innerText);
         });
     });
+};
 
+const operate = () => {
+    firstNum = parseFloat(firstNum);
+    secondNum = parseFloat(displayVal);
+    switch (currentOperator) {
+        case '+':
+            displayVal = add(firstNum, secondNum).toString();
+            break;
+        case '-':
+            displayVal = subtract(firstNum, secondNum).toString();
+            break;
+        case '×':
+            displayVal = multiply(firstNum, secondNum).toString();
+            break;
+        case '÷':
+            displayVal = divide(firstNum, secondNum).toString();
+            break;
+        default:
+            return;
+    }
+    updateDisplay();
+    clearOperation();
+}
+
+const clearOperation = () => {
+    firstNum = null;
+    currentOperator = null;
+    updateOperationDisplay();
+}
+
+const opButtonEventListener = () => {
+    const opButtons = document.querySelectorAll('.op-button');
+    opButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.innerText === '=') {
+                if (firstNum !== null && currentOperator !== null && displayVal !== '') {
+                    operate();
+                }
+            } else {
+                if (displayVal !== '') {
+                    firstNum = displayVal;
+                    currentOperator = button.innerText;
+                    displayVal = '';
+                    updateDisplay();
+                    updateOperationDisplay();
+                }
+            }
+        });
+    });
+};
+
+const actionButtonEventListener = () => {
     const clearButton = document.querySelector('#clear-button');
     clearButton.addEventListener('click', clearDisplay);
 
@@ -41,8 +102,6 @@ const numButtonEventListener = () => {
     deleteButton.addEventListener('click', deleteLastDigit);
 };
 
-const operate = (currentOperator, firstNum, secondNum) => {
-    return currentOperator(firstNum, secondNum);
-}
-
 numButtonEventListener();
+opButtonEventListener();
+actionButtonEventListener();

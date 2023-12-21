@@ -37,22 +37,34 @@ ul {
 
 .display {
   width: 400px;
-  height: auto;
-  padding: 50px;
+  height: 120px; /* Fixed height for the display area */
+  padding: 20px;
   background-color: lightgrey;
   border-radius: 5%;
-  border: 2px;
-  border-style: solid;
-  border-color: black;
+  border: 2px solid black;
   display: flex;
-  justify-content: end;
+  flex-direction: column;
+  justify-content: space-between; 
+  align-items: flex-end;
+  overflow: hidden; 
+}
+
+.calculator-display, .operation-display {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
 }
 
 .calculator-display {
   font-size: 50px;
-  padding: 0px;
-  margin: 0px;
-  font-weight: bold;
+}
+
+.operation-display {
+  font-size: 20px; 
+  color: darkslategray;
 }
 
 button {
