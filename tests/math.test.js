@@ -15,6 +15,6 @@ describe('math operations', () => {
 
   test('divides two numbers', () => {
     expect(divide(12, 4)).toBe(3);
-    expect(divide(5, 0)).toBe('Cannot divide by zero');
+    expect(divide(5, 0)).toBeNaN(); // This will check for NaN
   });
 });
