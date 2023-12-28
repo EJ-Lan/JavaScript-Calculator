@@ -29,7 +29,7 @@ To use the JavaScript-Calculator, follow these steps:
    git clone git@github.com:[Your Username]/JavaScript-Calculator.git
    ```
 
-2. **Naviage to the project directory:**
+2. **Navigate to the project directory:**
    ```bash
    cd JavaScript-Calculator
    ```
@@ -51,7 +51,7 @@ To use the JavaScript-Calculator, follow these steps:
    ```bash
    npm test
    ```
-   This will run the unit tests defied in the project using Jest
+   This will run the unit tests defined in the project using Jest
 
 ## Continous Integration
 This project is configured with GitHub Actions to automatically build the Docker image and run tests every time changes are pushed or a pull request is made to the main branch. The CI workflow ensures that the codebase maintains a standard of quality with each update.
